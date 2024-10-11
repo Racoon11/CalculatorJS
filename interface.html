@@ -35,12 +35,14 @@
                 <button class="btn btn-primary btn-lg m-1 col-md-2"  id="1">1</button>
                 <button class="btn btn-primary btn-lg m-1 col-md-2"  id="2">2</button>
 				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="+">+</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="erase"> &lt;-- </button>
 			</div>
 				<div class="row">
                 <button class="btn btn-primary btn-lg m-1 col-md-2"  id="3">3</button>
 				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="4">4</button>
 				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="5">5</button>
 				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="-">-</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id=".">.</button>
 			</div>
 			<div class="row">
                 <button class="btn btn-primary btn-lg m-1 col-md-2"  id="6">6</button>
@@ -72,22 +74,23 @@
 		if (resultText.textContent == "...") { resultText.textContent = ""}
 		resultText.textContent += i.toString();
 	}
-	function click_operation(i, button) {
-		if (resultText.textContent == "...") { resultText.textContent = ""}
-		resultText.textContent += i;
+	function click_erase(button) {
+		resultText.textContent = resultText.textContent.substr(0, resultText.textContent.length-1);
 	}
 	function click_calculate(button) {
+		console.log(resultText.textContent);
 		try{
 			calculate = resultText.textContent;
-			resultText.textContent = eval(calculate.substr(0, calculate.length-1));
+			resultText.textContent = eval(calculate.substr(0, calculate.length));
 		} catch(err) {
+			console.log(err);
 			alert("В выражении допущены ошибки, попробуйте исправить его");
 		}
 	}
 
-	var operationIds = ['-', '+', '*', '-', '/'];
+	var operationIds = ['-', '+', '*', '-', '/', '.'];
 	var resultText = document.getElementById("result");
-
+	var i = 2/3;
 	var calculate = "";
 	for (var i=0; i <= 9; i++) {
 		var but = document.getElementById(i.toString());
@@ -95,11 +98,13 @@
 	}
 	for (var i=0; i < operationIds.length; i++) {
 		var but = document.getElementById(operationIds[i]);
-		but.onclick = click_operation.bind(this, operationIds[i]);
+		but.onclick = click_digit.bind(this, operationIds[i]);
 
 	}
 	var but = document.getElementById("=");
 	but.onclick = click_calculate.bind(this);
+	var but = document.getElementById("erase");
+	but.onclick = click_erase.bind(this);
 	
 	
 	
