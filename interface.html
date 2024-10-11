@@ -71,28 +71,24 @@
     function click_digit(i, button) {
 		if (resultText.textContent == "...") { resultText.textContent = ""}
 		resultText.textContent += i.toString();
-		currentNumber += i.toString();
 	}
 	function click_operation(i, button) {
-		console.log(i);
-		if (currentNumber.length == 0) {return;}
-		if (calculate[calculate.length-1] in operationIds){
-			return;
-		}
-
+		if (resultText.textContent == "...") { resultText.textContent = ""}
 		resultText.textContent += i;
-		calculate.push(currentNumber);
-		calculate.push(i);
-		currentNumber = "";
 	}
 	function click_calculate(button) {
-		;
+		try{
+			calculate = resultText.textContent;
+			resultText.textContent = eval(calculate.substr(0, calculate.length-1));
+		} catch(err) {
+			alert("В выражении допущены ошибки, попробуйте исправить его");
+		}
 	}
-	var operationIds = ["-", '+', '*', '-', '/'];
+
+	var operationIds = ['-', '+', '*', '-', '/'];
 	var resultText = document.getElementById("result");
-	var currentNumber = "";
-	var currenOperation = "";
-	var calculate = [];
+
+	var calculate = "";
 	for (var i=0; i <= 9; i++) {
 		var but = document.getElementById(i.toString());
 		but.onclick = click_digit.bind(this, i);
