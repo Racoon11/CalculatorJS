@@ -23,7 +23,7 @@
 		<div class="row h-100 justify-content-center align-items-center">
 			<div class="col-md-8 col-md-offset-4">
 
-				<h1>Calculator</h1>
+				<h1>Калькулятор</h1>
 
                 <h2  id="result" >...</h2>
 			
@@ -76,6 +76,10 @@
 	}
 	function click_erase(button) {
 		resultText.textContent = resultText.textContent.substr(0, resultText.textContent.length-1);
+		
+		if (resultText.textContent.length == 0) {
+			resultText.textContent = '...';
+		}
 	}
 	function click_calculate(button) {
 		console.log(resultText.textContent);
