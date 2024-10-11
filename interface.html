@@ -21,44 +21,92 @@
 	<br>
     <div class="container h-100">
 		<div class="row h-100 justify-content-center align-items-center">
-			<div class="col-md-5 col-md-offset-6">
+			<div class="col-md-8 col-md-offset-4">
 
 				<h1>Calculator</h1>
 
-                <div class="form-group">
-                    <h2  id="result" "> here </h2>
-                </div>
-                
-				<div class="col-md-12 h-100" id="divButtons">
+                <h2  id="result" >...</h2>
+			
+			
+                <div class="row">
+				<div class="col-md-6 h-100" id="divButtons">
 					<div class="row">
-				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="zero">0</button>
-                <button class="btn btn-primary btn-lg m-1 col-md-2"  id="one">1</button>
-                <button class="btn btn-primary btn-lg m-1 col-md-2"  id="two">2</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="0">0</button>
+                <button class="btn btn-primary btn-lg m-1 col-md-2"  id="1">1</button>
+                <button class="btn btn-primary btn-lg m-1 col-md-2"  id="2">2</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="+">+</button>
 			</div>
 				<div class="row">
-                <button class="btn btn-primary btn-lg m-1 col-md-2"  id="three">3</button>
-				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="four">4</button>
-				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="five">5</button>
+                <button class="btn btn-primary btn-lg m-1 col-md-2"  id="3">3</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="4">4</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="5">5</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="-">-</button>
 			</div>
 			<div class="row">
-                <button class="btn btn-primary btn-lg m-1 col-md-2"  id="six">6</button>
-				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="seven">7</button>
-				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="eight">8</button>
+                <button class="btn btn-primary btn-lg m-1 col-md-2"  id="6">6</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="7">7</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="8">8</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="*">*</button>
 				</div>
-			</div>
+			
 			<div class="row">
-                <button class="btn btn-primary btn-lg m-1 col-md-6"  id="nine">9</button>
+                <button class="btn btn-primary btn-lg m-1 col-md-6"  id="9">9</button>
+				<button class="btn btn-primary btn-lg m-1 col-md-2"  id="/">/</button>
 				</div>
+				<div class="row">
+					<button class="btn btn-primary btn-lg m-1 col-md-6"  id="=">=</button>
+					</div>
 			</div>
+			
+	</div>
+	</div>
+			
 
 				
 			</div>
 		</div>
 	</div>
+
 <script>
-    function hello() {
-		alert("hello");
+    function click_digit(i, button) {
+		if (resultText.textContent == "...") { resultText.textContent = ""}
+		resultText.textContent += i.toString();
+		currentNumber += i.toString();
 	}
+	function click_operation(i, button) {
+		console.log(i);
+		if (currentNumber.length == 0) {return;}
+		if (calculate[calculate.length-1] in operationIds){
+			return;
+		}
+
+		resultText.textContent += i;
+		calculate.push(currentNumber);
+		calculate.push(i);
+		currentNumber = "";
+	}
+	function click_calculate(button) {
+		;
+	}
+	var operationIds = ["-", '+', '*', '-', '/'];
+	var resultText = document.getElementById("result");
+	var currentNumber = "";
+	var currenOperation = "";
+	var calculate = [];
+	for (var i=0; i <= 9; i++) {
+		var but = document.getElementById(i.toString());
+		but.onclick = click_digit.bind(this, i);
+	}
+	for (var i=0; i < operationIds.length; i++) {
+		var but = document.getElementById(operationIds[i]);
+		but.onclick = click_operation.bind(this, operationIds[i]);
+
+	}
+	var but = document.getElementById("=");
+	but.onclick = click_calculate.bind(this);
+	
+	
+	
 </script>
 </body>
 </html>
